@@ -105,27 +105,56 @@ public class BinarySearchTree {
 	
 	public Node delete(String data){ return delete(this.root, data); }
 	
-	public void print(Node root, int mode){
-		if(mode == 0){ // print in-order 
-			if(root == null) return;
-			print(root.getLeftChild(), 0);
-			System.out.println(root.toString());
-			print(root.getRightChild(), 0);	
+	public void printInOrder(Node root, StringBuilder fout){
+		if(root != null){
+			printInOrder(root.getLeftChild(), fout);
+			fout.append(root.getData() + "\n");
+			printInOrder(root.getRightChild(), fout);
 		}
-		if(mode == 1){ // print pre-order
-			if(root == null) return;
-			System.out.println(root.toString());
-			print(root.getLeftChild(), 1);
-			print(root.getRightChild(), 1);
-			
+	}
+	
+	public String printInOrder(){
+		StringBuilder fout = new StringBuilder();
+		if(this.root == null) return "";
+		printInOrder(this.root, fout);
+		return fout.toString();
+	}
+	
+	public void printPreOrder(Node root, StringBuilder fout){
+		if(root != null){
+			fout.append(root.getData() + "\n");
+			printPreOrder(root.getLeftChild(), fout);
+			printPreOrder(root.getRightChild(), fout);
 		}
-		if(mode == 2){ // print post-order
-			if(root == null) return;
-			print(root.getLeftChild(), 2);
-			print(root.getRightChild(), 2);
-			System.out.println(root.toString());
-			
+	}
+	
+	public String printPreOrder(){
+		StringBuilder fout = new StringBuilder();
+		if(this.root == null) return "";
+		printPreOrder(this.root, fout);
+		return fout.toString();
+	}
+	
+	public void printPostOrder(Node root, StringBuilder fout){
+		if(root != null){
+			printPostOrder(root.getLeftChild(), fout);
+			printPostOrder(root.getRightChild(), fout);
+			fout.append(root.getData() + "\n");
 		}
+	}
+	
+	public String printPostOrder(){
+		StringBuilder fout = new StringBuilder();
+		if(this.root == null) return "";
+		printPostOrder(this.root, fout);
+		return fout.toString();
+	}
+	
+	public String print(int mode){
+		if(mode == 0){ return printInOrder(); }
+		if(mode == 1){ return printPreOrder(); }
+		if(mode == 2){ return printPostOrder(); }
+		return "";
 	}
 	
 }
